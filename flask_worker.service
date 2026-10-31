@@ -1,0 +1,17 @@
+[Unit]
+Description=Flask App Worker - SQS Message Processor
+After=network.target
+
+[Service]
+EnvironmentFile=/home/webserver/environment_file
+Environment="APP_MODE=worker"
+Type=simple
+User=webserver
+WorkingDirectory=/home/webserver/flask_app
+ExecStart=/home/webserver/flask_app/venv/bin/python app.py
+Restart=always
+RestartSec=5
+StartLimitInterval=0
+
+[Install]
+WantedBy=multi-user.target
