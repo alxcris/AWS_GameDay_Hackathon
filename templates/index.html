@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Unicorn Rentals - Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <!-- Health Check Section -->
+    <div class="card">
+        <h2>🔍 System Health</h2>
+        <div class="health-status">
+            <p>
+                <span id="health-indicator" class="status-indicator"></span>
+                <span id="health-status">Checking...</span>
+            </p>
+            <button id="health-check-btn" class="btn" style="margin-top: 15px;">
+                Refresh Status
+            </button>
+        </div>
+    </div>
+
+    <!-- Hire Unicorn Section -->
+    <div class="card">
+        <h2>✨ Hire Unicorn</h2>
+        <form id="hire-unicorn-form">
+            <div class="form-group">
+                <label for="request-id">Request ID:</label>
+                <input type="text" id="request-id" name="request_id" placeholder="Enter unique request ID" required>
+                <div class="help-text">Example: hire_request_2024_001</div>
+            </div>
+            <button type="submit" class="btn">
+                Hire Unicorn
+            </button>
+            <span id="hire-loading" class="loading">Processing...</span>
+        </form>
+        <div id="hire-response" class="response-area"></div>
+    </div>
+
+    <!-- Fleet Report Section -->
+    <div class="card">
+        <h2>📊 Fleet Report</h2>
+        <form id="fleet-report-form">
+            <div class="form-group">
+                <label for="unicorn-ids">Unicorn IDs:</label>
+                <textarea id="unicorn-ids" name="unicorn_ids" placeholder="Enter unicorn IDs (comma or line separated)" required></textarea>
+                <div class="help-text">
+                    Up to 50 unicorns. Example: sparkle_123, rainbow_456, thunder_789
+                    <br>
+                    <button type="button" id="sample-data-btn" class="btn" style="margin-top: 5px; font-size: 12px; padding: 6px 12px;">
+                        Use Sample Data
+                    </button>
+                </div>
+            </div>
+            <button type="submit" class="btn">
+                Generate Fleet Report
+            </button>
+            <span id="fleet-loading" class="loading">Processing...</span>
+        </form>
+        <div id="fleet-response" class="response-area"></div>
+    </div>
+</div>
+
+<!-- API Information Section -->
+<div class="card" style="margin-top: 30px;">
+    <h2>📋 API Information</h2>
+    <p>This dashboard provides a web interface for the Unicorn Rentals API endpoints:</p>
+    <ul style="margin: 15px 0; padding-left: 20px;">
+        <li><strong>POST /unicorn</strong> - Hire a unicorn with cryptographic signature</li>
+        <li><strong>POST /fleet-report</strong> - Generate comprehensive fleet health reports</li>
+        <li><strong>GET /healthcheck</strong> - Check system health and database connectivity</li>
+    </ul>
+    <p style="color: #666; font-size: 0.9em; margin-top: 15px;">
+        All reports are automatically stored in S3 for future reference. 
+        Async processing via SQS is available when configured.
+    </p>
+</div>
+{% endblock %}
